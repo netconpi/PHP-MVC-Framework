@@ -1,0 +1,21 @@
+{
+    "name": "ntcad/php_framework",
+    "description": "Just trying to write some excellent code!",
+    "autoload": {
+        "psr-4": {
+            "Ntcad\\PhpFramework\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "netconpi",
+            "email": "mishadesignsev@yandex.ru"
+        }
+    ],
+    "autoload-dev": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "require": {}
+}
