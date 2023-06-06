@@ -16,14 +16,18 @@ class Router
     }
 
 
-    public function get(string $path, string $callback): void
+    public function get(string $path, object $callback): void
     {
         $this->routes['get'][$path] = $callback;
     }
 
-    public function resolve(): void
+    public function resolve(): mixed
     {
-        echo $this->request->getPath();
+        $path = $this->request->getPath();
+        $method = $this->request->getMethod();
+        $callback = $this->routes[$method][$path] ?? function () { echo '404'; };
+
+        return call_user_func($callback);
     }
 
 }

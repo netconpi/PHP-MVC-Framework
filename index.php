@@ -5,8 +5,13 @@ use \app\core\Application;
 
 $app = new Application();
 
-$app->router->get('/', callback: function (): void {
+$app->router->get('/', function (): void {
     echo 'Hello world!';
 });
+$app->router->get('/contacts', function (): void {
+    echo 'Контакты!';
+});
+
+$app->run();
 
 
