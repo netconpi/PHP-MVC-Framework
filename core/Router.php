@@ -19,9 +19,14 @@ class Router
     }
 
 
-    public function get(string $path, object|string $callback): void
+    public function get(string $path, mixed $callback): void
     {
         $this->routes['get'][$path] = $callback;
+    }
+
+    public function post(string $path, mixed $callback): void
+    {
+        $this->routes['post'][$path] = $callback;
     }
 
     public function resolve(): mixed
@@ -57,7 +62,6 @@ class Router
         return true;
     }
 
-    /** @noinspection PhpSameParameterValueInspection */
     private function getLayout(string $layoutName): string
     {
         ob_start();
