@@ -15,4 +15,9 @@ class SiteController
     {
         return Application::$app->router->renderView('main', 'contacts');
     }
+
+    public function main(): string
+    {
+        return Application::$app->router->renderView('main', 'home', ['name'=>'test mvc site']);
+    }
 }

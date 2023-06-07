@@ -6,7 +6,7 @@ use \app\controllers\SiteController;
 
 $app = new Application();
 
-$app->router->get('/', 'home');
+$app->router->get('/', [new SiteController(), 'main']);
 
 $app->router->get('/contacts', [new SiteController(), 'contact']);
 

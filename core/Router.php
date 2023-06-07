@@ -43,12 +43,10 @@ class Router
             return $this->renderView('main', $callback);
         }
 
-//        var_dump($callback);
         return call_user_func($callback);
-//        return call_user_func([new SiteController(), 'contact']);
     }
 
-    public function renderView(string $layoutName, string $viewName): string
+    public function renderView(string $layoutName, string $viewName, array $arData = []): string
     {
         $viewContentFile = $_SERVER['DOCUMENT_ROOT'] . '/views/' . $viewName . '.php';
 
@@ -58,7 +56,8 @@ class Router
         }
 
         $layoutContent = $this->getLayout($layoutName);
-        $content = $this->getCleanView($viewName);
+        $content = $this->getCleanView($viewName, $arData);
+
 
         return str_replace('{{content}}', $content, $layoutContent);
     }
@@ -70,7 +69,7 @@ class Router
         return ob_get_clean();
     }
 
-    private function getCleanView(string $viewName): string
+    private function getCleanView(string $viewName, array $arData = []): string
     {
         ob_start();
         include_once $_SERVER['DOCUMENT_ROOT'] . '/views/' . $viewName . '.php';
