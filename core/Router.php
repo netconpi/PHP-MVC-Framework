@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\controllers\SiteController;
+
 class Router
 {
     protected array $routes = [];
@@ -33,7 +35,7 @@ class Router
     {
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
-        $callback = $this->routes[$method][$path] ?? function () { echo $this->getErrorScreen(); };
+        $callback = $this->routes[$method][$path] ?? function () { return $this->getErrorScreen(); };
 
         // Return View
         if (is_string($callback))
@@ -41,25 +43,24 @@ class Router
             return $this->renderView('main', $callback);
         }
 
+//        var_dump($callback);
         return call_user_func($callback);
+//        return call_user_func([new SiteController(), 'contact']);
     }
 
-    private function renderView(string $layoutName, string $viewName): bool|string
+    public function renderView(string $layoutName, string $viewName): string
     {
         $viewContentFile = $_SERVER['DOCUMENT_ROOT'] . '/views/' . $viewName . '.php';
 
         if (!file_exists($viewContentFile))
         {
-            echo $this->getErrorScreen();
-            return false;
+            return $this->getErrorScreen();
         }
 
         $layoutContent = $this->getLayout($layoutName);
         $content = $this->getCleanView($viewName);
 
-        echo str_replace('{{content}}', $content, $layoutContent);
-
-        return true;
+        return str_replace('{{content}}', $content, $layoutContent);
     }
 
     private function getLayout(string $layoutName): string

@@ -8,10 +8,10 @@ $app = new Application();
 
 $app->router->get('/', 'home');
 
-$app->router->get('/contacts', [SiteController::class, 'contact']);
+$app->router->get('/contacts', [new SiteController(), 'contact']);
 
-$app->router->post('/contacts', [SiteController::class, 'handleContact']);
+$app->router->post('/contacts', [new SiteController(), 'handleContact']);
 
-$app->run();
+echo $app->run();
 
 
